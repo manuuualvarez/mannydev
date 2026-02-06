@@ -1,0 +1,181 @@
+{
+  "metadata": {
+    "title": "Manuel Alvarez | Development Studio",
+    "description": "Expert development studio specializing in MVPs, web applications, and business automation."
+  },
+  "header": {
+    "services": "Services",
+    "blog": "Blog",
+    "contact": "Contact",
+    "signIn": "Sign In",
+    "startProject": "Start a project"
+  },
+  "hero": {
+    "badge": "Available for new projects",
+    "headline": "Build digital products that drive business growth",
+    "highlightWords": ["digital", "growth"],
+    "subheadline": "Expert development studio specializing in <mvps>MVPs</mvps>, <webApps>web applications</webApps> and <automation>business automation</automation>.",
+    "ctaPrimary": "Start your project",
+    "ctaSecondary": "View services"
+  },
+  "services": {
+    "label": "What We Do",
+    "title": "Services designed for <highlight>growth</highlight>",
+    "titleHighlight": "growth",
+    "description": "From concept to launch, we build digital products that solve real problems and deliver measurable results for your business.",
+    "notSure": "Not sure which service you need?",
+    "discuss": "Let's discuss your project",
+    "learnMore": "Learn more",
+    "startingFrom": "starting",
+    "getQuote": "Get a quote",
+    "contactUs": "Contact us"
+  },
+  "servicesPage": {
+    "label": "Our Services",
+    "title": "Transform your ideas into <highlight>digital products</highlight>",
+    "description": "From MVPs to enterprise applications, we build software that solves real problems and delivers measurable results for your business.",
+    "ctaTitle": "Not sure which service fits your needs?",
+    "ctaDescription": "Let's discuss your project and find the perfect solution together.",
+    "ctaButton": "Start a conversation",
+    "errorLoading": "Failed to load services. Please try again later."
+  },
+  "blogPage": {
+    "label": "Blog",
+    "title": "Insights & <highlight>tutorials</highlight>",
+    "description": "Thoughts on software development, iOS, web technologies, and building products that people love.",
+    "readMore": "Read more",
+    "noPostsTitle": "No posts yet",
+    "noPostsDescription": "I'm working on some exciting content. Check back soon for articles about software development, iOS, and building digital products.",
+    "errorLoading": "Failed to load posts. Please try again later.",
+    "backToBlog": "Back to blog",
+    "publishedOn": "Published on",
+    "sharePost": "Share"
+  },
+  "contactPage": {
+    "label": "Contact",
+    "title": "Let's build something <highlight>amazing</highlight>",
+    "description": "Have a project in mind? I'd love to hear about it. Send me a message and I'll get back to you within 24 hours.",
+    "emailLabel": "Email",
+    "responseTimeLabel": "Response Time",
+    "responseTimeValue": "Within 24 hours",
+    "locationLabel": "Location",
+    "locationValue": "Remote / Worldwide",
+    "faqLabel": "FAQ",
+    "faqTitle": "Frequently asked questions",
+    "faqs": [
+      {
+        "question": "What is your development process?",
+        "answer": "I follow an agile approach with weekly sprints and regular check-ins. We start with a discovery phase to understand your requirements, then move to design, development, and testing."
+      },
+      {
+        "question": "How long does a typical project take?",
+        "answer": "It depends on the scope. An MVP typically takes 4-8 weeks, a full web application 6-12 weeks, and a native iOS app 8-16 weeks."
+      },
+      {
+        "question": "What technologies do you use?",
+        "answer": "For web: Next.js, React, TypeScript, NestJS, PostgreSQL, and Tailwind CSS. For mobile: Native Swift and SwiftUI. For automation: n8n and custom Node.js scripts."
+      },
+      {
+        "question": "Do you provide ongoing support?",
+        "answer": "Yes, all projects include 30 days of bug fixes after launch. For ongoing support and maintenance, I offer monthly retainer packages."
+      }
+    ]
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "Sorry, the page you're looking for doesn't exist or has been moved.",
+    "backHome": "Back to home",
+    "contactUs": "Contact us"
+  },
+  "experience": {
+    "label": "Experience",
+    "title": "{years}+ years of building <highlight>exceptional products</highlight>",
+    "titleHighlight": "exceptional products",
+    "description": "Trusted by industry-leading companies. I've worked with startups and enterprises to deliver high-quality mobile and web applications.",
+    "stats": {
+      "years": "Years Experience",
+      "companies": "Companies",
+      "projects": "Projects Delivered",
+      "certifications": "Certifications"
+    }
+  },
+  "dualPositioning": {
+    "label": "How Can I Help?",
+    "title": "Two ways to <highlight>work together</highlight>",
+    "titleHighlight": "work together",
+    "employee": {
+      "title": "Hire as Employee",
+      "subtitle": "Full-time or Contract",
+      "description": "Looking for a Senior iOS Developer with 6+ years of experience? I bring expertise in Swift, SwiftUI, and modern iOS architectures to help your team build exceptional mobile experiences.",
+      "highlights": [
+        "Senior-level iOS expertise",
+        "Experience with PayPal, PedidosYa, and more",
+        "Strong in SwiftUI, UIKit, MVVM, VIPER",
+        "Remote-first, global timezone flexibility"
+      ],
+      "ctaPrimary": "View Resume",
+      "ctaSecondary": "LinkedIn"
+    },
+    "services": {
+      "title": "Buy My Services",
+      "subtitle": "Project-based Work",
+      "description": "Need a complete digital product? From MVPs to full-scale applications, I deliver end-to-end solutions using modern technologies. Web, mobile, and automation - all under one roof.",
+      "highlights": [
+        "Full-stack web & mobile development",
+        "MVP in 4-8 weeks",
+        "Business process automation",
+        "Ongoing support & maintenance"
+      ],
+      "ctaPrimary": "Start a Project",
+      "ctaSecondary": "View Services"
+    },
+    "whatYouGet": "What you get"
+  },
+  "contact": {
+    "label": "Get in Touch",
+    "title": "Let's build something <highlight>amazing</highlight>",
+    "titleHighlight": "amazing",
+    "description": "Tell us about your project and we'll get back to you within 24 hours with a personalized response.",
+    "email": "Email",
+    "responseTime": "Response time",
+    "within24": "Within 24 hours",
+    "form": {
+      "name": "Your name",
+      "email": "Email address",
+      "company": "Company (optional)",
+      "message": "Tell us about your project...",
+      "submit": "Send message",
+      "sending": "Sending...",
+      "success": "Message sent!",
+      "successSub": "We'll be in touch soon."
+    },
+    "validation": {
+      "nameMin": "Name must be at least 2 characters",
+      "emailInvalid": "Invalid email address",
+      "messageMin": "Message must be at least 10 characters"
+    }
+  },
+  "footer": {
+    "tagline": "Expert development studio specializing in MVPs, web applications, and business automation. Turning ideas into digital products.",
+    "servicesTitle": "Services",
+    "companyTitle": "Company",
+    "legalTitle": "Legal",
+    "about": "About",
+    "blog": "Blog",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "webDev": "Web Development",
+    "mobileApps": "Mobile Apps",
+    "automation": "Business Automation",
+    "mvpDev": "MVP Development",
+    "allRights": "All rights reserved.",
+    "builtWith": "Built with",
+    "using": "using Next.js & NestJS"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry"
+  }
+}

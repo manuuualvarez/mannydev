@@ -1,0 +1,181 @@
+{
+  "metadata": {
+    "title": "Manuel Alvarez | Estudio de Desarrollo",
+    "description": "Estudio de desarrollo especializado en MVPs, aplicaciones web y automatizacion de negocios."
+  },
+  "header": {
+    "services": "Servicios",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "signIn": "Iniciar sesion",
+    "startProject": "Iniciar proyecto"
+  },
+  "hero": {
+    "badge": "Disponible para nuevos proyectos",
+    "headline": "Creamos productos digitales que impulsan el crecimiento de tu negocio",
+    "highlightWords": ["digitales", "crecimiento"],
+    "subheadline": "Estudio de desarrollo especializado en <mvps>MVPs</mvps>, <webApps>aplicaciones web</webApps> y <automation>automatizacion de negocios</automation>.",
+    "ctaPrimary": "Iniciar tu proyecto",
+    "ctaSecondary": "Ver servicios"
+  },
+  "services": {
+    "label": "Lo que hacemos",
+    "title": "Servicios disenados para el <highlight>crecimiento</highlight>",
+    "titleHighlight": "crecimiento",
+    "description": "Desde el concepto hasta el lanzamiento, construimos productos digitales que resuelven problemas reales y entregan resultados medibles para tu negocio.",
+    "notSure": "No sabes que servicio necesitas?",
+    "discuss": "Hablemos de tu proyecto",
+    "learnMore": "Mas informacion",
+    "startingFrom": "desde",
+    "getQuote": "Consultar precio",
+    "contactUs": "Contactar"
+  },
+  "servicesPage": {
+    "label": "Nuestros Servicios",
+    "title": "Transforma tus ideas en <highlight>productos digitales</highlight>",
+    "description": "Desde MVPs hasta aplicaciones empresariales, construimos software que resuelve problemas reales y entrega resultados medibles para tu negocio.",
+    "ctaTitle": "No sabes que servicio necesitas?",
+    "ctaDescription": "Hablemos de tu proyecto y encontremos la solucion perfecta juntos.",
+    "ctaButton": "Iniciar una conversacion",
+    "errorLoading": "No se pudieron cargar los servicios. Intentalo de nuevo mas tarde."
+  },
+  "blogPage": {
+    "label": "Blog",
+    "title": "Ideas y <highlight>tutoriales</highlight>",
+    "description": "Reflexiones sobre desarrollo de software, iOS, tecnologias web y como construir productos que la gente ama.",
+    "readMore": "Leer mas",
+    "noPostsTitle": "Aun no hay publicaciones",
+    "noPostsDescription": "Estoy trabajando en contenido interesante. Vuelve pronto para articulos sobre desarrollo de software, iOS y productos digitales.",
+    "errorLoading": "No se pudieron cargar las publicaciones. Intentalo de nuevo mas tarde.",
+    "backToBlog": "Volver al blog",
+    "publishedOn": "Publicado el",
+    "sharePost": "Compartir"
+  },
+  "contactPage": {
+    "label": "Contacto",
+    "title": "Construyamos algo <highlight>increible</highlight>",
+    "description": "Tenes un proyecto en mente? Me encantaria conocerlo. Enviame un mensaje y te respondere dentro de 24 horas.",
+    "emailLabel": "Email",
+    "responseTimeLabel": "Tiempo de respuesta",
+    "responseTimeValue": "Dentro de 24 horas",
+    "locationLabel": "Ubicacion",
+    "locationValue": "Remoto / Mundial",
+    "faqLabel": "FAQ",
+    "faqTitle": "Preguntas frecuentes",
+    "faqs": [
+      {
+        "question": "Cual es tu proceso de desarrollo?",
+        "answer": "Sigo un enfoque agil con sprints semanales y reuniones regulares. Empezamos con una fase de descubrimiento para entender tus requisitos, luego pasamos a diseno, desarrollo y testing."
+      },
+      {
+        "question": "Cuanto tiempo tarda un proyecto tipico?",
+        "answer": "Depende del alcance. Un MVP tipicamente toma 4-8 semanas, una aplicacion web completa 6-12 semanas, y una app nativa iOS 8-16 semanas."
+      },
+      {
+        "question": "Que tecnologias usas?",
+        "answer": "Para web: Next.js, React, TypeScript, NestJS, PostgreSQL y Tailwind CSS. Para mobile: Swift nativo y SwiftUI. Para automatizacion: n8n y scripts personalizados en Node.js."
+      },
+      {
+        "question": "Brindas soporte continuo?",
+        "answer": "Si, todos los proyectos incluyen 30 dias de correccion de bugs despues del lanzamiento. Para soporte y mantenimiento continuo, ofrezco paquetes de retainer mensual."
+      }
+    ]
+  },
+  "notFound": {
+    "title": "Pagina no encontrada",
+    "description": "Lo sentimos, la pagina que buscas no existe o fue movida.",
+    "backHome": "Volver al inicio",
+    "contactUs": "Contactanos"
+  },
+  "experience": {
+    "label": "Experiencia",
+    "title": "{years}+ anos construyendo <highlight>productos excepcionales</highlight>",
+    "titleHighlight": "productos excepcionales",
+    "description": "Confiado por empresas lideres de la industria. Trabaje con startups y empresas para entregar aplicaciones moviles y web de alta calidad.",
+    "stats": {
+      "years": "Anos de experiencia",
+      "companies": "Empresas",
+      "projects": "Proyectos entregados",
+      "certifications": "Certificaciones"
+    }
+  },
+  "dualPositioning": {
+    "label": "Como puedo ayudarte?",
+    "title": "Dos formas de <highlight>trabajar juntos</highlight>",
+    "titleHighlight": "trabajar juntos",
+    "employee": {
+      "title": "Contratame como empleado",
+      "subtitle": "Full-time o Contrato",
+      "description": "Buscas un Senior iOS Developer con 6+ anos de experiencia? Traigo expertise en Swift, SwiftUI y arquitecturas iOS modernas para ayudar a tu equipo a construir experiencias moviles excepcionales.",
+      "highlights": [
+        "Expertise senior en iOS",
+        "Experiencia en PayPal, PedidosYa y mas",
+        "Fuerte en SwiftUI, UIKit, MVVM, VIPER",
+        "Remote-first, flexibilidad de timezone global"
+      ],
+      "ctaPrimary": "Ver CV",
+      "ctaSecondary": "LinkedIn"
+    },
+    "services": {
+      "title": "Contrata mis servicios",
+      "subtitle": "Trabajo por proyecto",
+      "description": "Necesitas un producto digital completo? Desde MVPs hasta aplicaciones a escala completa, entrego soluciones end-to-end usando tecnologias modernas. Web, mobile y automatizacion - todo bajo un mismo techo.",
+      "highlights": [
+        "Desarrollo full-stack web & mobile",
+        "MVP en 4-8 semanas",
+        "Automatizacion de procesos de negocio",
+        "Soporte y mantenimiento continuo"
+      ],
+      "ctaPrimary": "Iniciar un proyecto",
+      "ctaSecondary": "Ver servicios"
+    },
+    "whatYouGet": "Lo que obtienes"
+  },
+  "contact": {
+    "label": "Contacto",
+    "title": "Construyamos algo <highlight>increible</highlight>",
+    "titleHighlight": "increible",
+    "description": "Contanos sobre tu proyecto y te responderemos en 24 horas con una respuesta personalizada.",
+    "email": "Email",
+    "responseTime": "Tiempo de respuesta",
+    "within24": "Dentro de 24 horas",
+    "form": {
+      "name": "Tu nombre",
+      "email": "Direccion de email",
+      "company": "Empresa (opcional)",
+      "message": "Contanos sobre tu proyecto...",
+      "submit": "Enviar mensaje",
+      "sending": "Enviando...",
+      "success": "Mensaje enviado!",
+      "successSub": "Te contactaremos pronto."
+    },
+    "validation": {
+      "nameMin": "El nombre debe tener al menos 2 caracteres",
+      "emailInvalid": "Direccion de email invalida",
+      "messageMin": "El mensaje debe tener al menos 10 caracteres"
+    }
+  },
+  "footer": {
+    "tagline": "Estudio de desarrollo especializado en MVPs, aplicaciones web y automatizacion de negocios. Convirtiendo ideas en productos digitales.",
+    "servicesTitle": "Servicios",
+    "companyTitle": "Empresa",
+    "legalTitle": "Legal",
+    "about": "Acerca de",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "privacy": "Politica de Privacidad",
+    "terms": "Terminos de Servicio",
+    "webDev": "Desarrollo Web",
+    "mobileApps": "Apps Moviles",
+    "automation": "Automatizacion",
+    "mvpDev": "Desarrollo MVP",
+    "allRights": "Todos los derechos reservados.",
+    "builtWith": "Construido con",
+    "using": "usando Next.js & NestJS"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrio un error",
+    "retry": "Reintentar"
+  }
+}
