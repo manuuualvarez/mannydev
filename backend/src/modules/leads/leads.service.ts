@@ -27,8 +27,40 @@ export class LeadsService {
   async create(input: CreateLeadInput) {
     this.logger.log(`Creating lead from: ${input.email}`);
 
-    return this.prisma.lead.create({
+    const lead = await this.prisma.lead.create({
       data: input,
+    });
+
+    this.notifyWebhook(lead);
+
+    return lead;
+  }
+
+  private notifyWebhook(lead: {
+    id: string;
+    name: string;
+    email: string;
+    company: string | null;
+    message: string;
+    createdAt: Date;
+  }) {
+    const webhookUrl = process.env.N8N_WEBHOOK_URL;
+    if (!webhookUrl) return;
+
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: lead.id,
+        name: lead.name,
+        email: lead.email,
+        company: lead.company,
+        message: lead.message,
+        createdAt: lead.createdAt,
+        source: 'manuelalvarez.cloud',
+      }),
+    }).catch((err) => {
+      this.logger.warn(`Failed to notify webhook: ${err.message}`);
     });
   }
 
