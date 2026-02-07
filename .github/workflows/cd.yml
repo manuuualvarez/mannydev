@@ -1,0 +1,57 @@
+name: CD
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: cd-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add VPS to known hosts
+        run: ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          ssh root@${VPS_HOST} "
+            set -e
+
+            echo '=== Pre-deploy: listing containers ==='
+            docker ps --format 'table {{.Names}}\t{{.Status}}' | head -20
+
+            echo '=== Pulling latest code ==='
+            cd /docker/manuelalvarez
+            git remote set-url origin https://x-access-token:${GH_PAT}@github.com/manuuualvarez/mannydev.git
+            git pull origin main
+            git remote set-url origin https://github.com/manuuualvarez/mannydev.git
+
+            echo '=== Building and deploying (backend + frontend only) ==='
+            docker compose -f docker-compose.prod.yml --project-name manuelalvarez-prod up -d --build --no-deps backend frontend
+
+            echo '=== Waiting for services to start ==='
+            sleep 15
+
+            echo '=== Health checks ==='
+            curl -sf https://manuelalvarez.cloud > /dev/null && echo 'Frontend: OK' || echo 'Frontend: FAILED'
+            curl -sf -X POST https://api.manuelalvarez.cloud/graphql -H 'Content-Type: application/json' -d '{\"query\":\"{health}\"}' > /dev/null && echo 'Backend: OK' || echo 'Backend: FAILED'
+
+            echo '=== Verifying n8n is untouched ==='
+            docker ps | grep n8n && echo 'n8n: OK' || echo 'WARNING: n8n not found!'
+
+            echo '=== Deploy complete ==='
+          "
