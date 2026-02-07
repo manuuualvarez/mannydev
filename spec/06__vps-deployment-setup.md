@@ -24,14 +24,14 @@ Configurar el VPS de Hostinger (Ubuntu 24.04, KVM 2) para hospedar múltiples pr
 
 | Campo          | Valor                          |
 |----------------|--------------------------------|
-| ID             | 1245135                        |
+| ID             | VPS_ID                        |
 | Plan           | KVM 2 (2 CPUs, 8GB RAM, 100GB)|
-| IP             | 72.62.170.218                  |
-| IPv6           | 2a02:4780:2d:b5a1::1           |
+| IP             | $VPS_HOST                  |
+| IPv6           | $VPS_IPV6           |
 | OS             | Ubuntu 24.04 with n8n          |
 | Estado         | Running                        |
 | Firewall       | Ninguno configurado            |
-| Hostname       | srv1245135.hstgr.cloud         |
+| Hostname       | $VPS_HOSTNAME         |
 
 ### Containers Actuales
 
@@ -44,7 +44,7 @@ Configurar el VPS de Hostinger (Ubuntu 24.04, KVM 2) para hospedar múltiples pr
 
 | Registro | Tipo  | Valor                    | Problema |
 |----------|-------|--------------------------|----------|
-| @        | A     | 84.32.84.32              | **IP INCORRECTA** - debe ser 72.62.170.218 |
+| @        | A     | OLD_WRONG_IP              | **IP INCORRECTA** - debe ser $VPS_HOST |
 | www      | CNAME | manuelalvarez.cloud.     | OK |
 | api      | -     | NO EXISTE                | **Falta crear** |
 
@@ -55,7 +55,7 @@ Internet
   │
   ▼
 ┌─────────────────────────────────┐
-│  VPS 72.62.170.218              │
+│  VPS $VPS_HOST              │
 │                                  │
 │  ┌────────────────────────┐     │
 │  │  Docker Project: n8n    │     │
@@ -63,7 +63,7 @@ Internet
 │  │  Traefik (:80, :443)   │     │
 │  │    │                    │     │
 │  │    └─► n8n (:5678)     │     │
-│  │    (n8n.srv1245135...)  │     │
+│  │    (n8n.srvVPS_ID...)  │     │
 │  └────────────────────────┘     │
 │                                  │
 │  Sin red compartida              │
@@ -90,7 +90,7 @@ Internet
   │
   ▼
 ┌──────────────────────────────────────────────────────────────┐
-│  VPS 72.62.170.218                                            │
+│  VPS $VPS_HOST                                            │
 │                                                               │
 │  ┌─────────────────────────────────────────────────────────┐ │
 │  │  Docker Network: traefik-public (external)               │ │
@@ -129,10 +129,10 @@ Internet
 | manuelalvarez.cloud | manuelalvarez-frontend | frontend | 3000 |
 | api.manuelalvarez.cloud | manuelalvarez-backend | backend | 4000 |
 | n8n.manuelalvarez.cloud (o n8n.srv...) | n8n | n8n | 5678 |
-| demo1.srv1245135.hstgr.cloud | demo1-frontend | demo1-fe | 3001 |
-| demo1-api.srv1245135.hstgr.cloud | demo1-backend | demo1-be | 4001 |
-| demo2.srv1245135.hstgr.cloud | demo2-frontend | demo2-fe | 3002 |
-| demo2-api.srv1245135.hstgr.cloud | demo2-backend | demo2-be | 4002 |
+| demo1.$VPS_HOSTNAME | demo1-frontend | demo1-fe | 3001 |
+| demo1-api.$VPS_HOSTNAME | demo1-backend | demo1-be | 4001 |
+| demo2.$VPS_HOSTNAME | demo2-frontend | demo2-fe | 3002 |
+| demo2-api.$VPS_HOSTNAME | demo2-backend | demo2-be | 4002 |
 
 ---
 
@@ -142,9 +142,9 @@ Internet
 
 **Acciones via API Hostinger:**
 
-1. Actualizar A record de `@` a `72.62.170.218`
-2. Crear A record para `api` apuntando a `72.62.170.218`
-3. (Opcional) Crear A record para `n8n` apuntando a `72.62.170.218`
+1. Actualizar A record de `@` a `$VPS_HOST`
+2. Crear A record para `api` apuntando a `$VPS_HOST`
+3. (Opcional) Crear A record para `n8n` apuntando a `$VPS_HOST`
 
 **Nota:** La propagacion DNS puede tomar 5 minutos a 48 horas.
 
@@ -153,7 +153,7 @@ Internet
 **1.1 Crear red compartida de Traefik**
 
 ```bash
-ssh root@72.62.170.218
+ssh root@$VPS_HOST
 
 # Crear la red externa que compartiran TODOS los proyectos
 docker network create traefik-public
@@ -247,7 +247,7 @@ docker compose up -d
 
 # Verificar que n8n sigue funcionando
 docker compose ps
-curl -I https://n8n.srv1245135.hstgr.cloud
+curl -I https://n8n.$VPS_HOSTNAME
 ```
 
 ### Fase 2: Deploy manuelalvarez.cloud
@@ -366,8 +366,8 @@ Fase 1 (VPS Traefik setup) ─────────────────�
 
 ## Criterios de Aceptacion
 
-- [x] DNS de manuelalvarez.cloud apunta a 72.62.170.218
-- [x] DNS de api.manuelalvarez.cloud apunta a 72.62.170.218
+- [x] DNS de manuelalvarez.cloud apunta a $VPS_HOST
+- [x] DNS de api.manuelalvarez.cloud apunta a $VPS_HOST
 - [ ] n8n sigue funcionando despues de actualizar Traefik
 - [ ] Red traefik-public creada y funcional
 - [ ] https://manuelalvarez.cloud muestra la web
@@ -384,7 +384,7 @@ Fase 1 (VPS Traefik setup) ─────────────────�
 | Riesgo | Probabilidad | Mitigacion |
 |--------|-------------|------------|
 | n8n se rompe al cambiar Traefik | MEDIA | Hacer snapshot del VPS antes. Probar con docker compose config primero |
-| DNS no propaga rapido | BAJA | Usar subdominios de srv1245135.hstgr.cloud mientras tanto |
+| DNS no propaga rapido | BAJA | Usar subdominios de $VPS_HOSTNAME mientras tanto |
 | VPS sin RAM para todos los proyectos | MEDIA | Monitorear con `docker stats`. 8GB deberia alcanzar para 3-4 proyectos |
 | Puerto 80/443 conflicto | NULA | Solo Traefik usa estos puertos, el resto es interno |
 | Volumes se pisan entre proyectos | BAJA | Nomenclatura estricta con prefijos |
