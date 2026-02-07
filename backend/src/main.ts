@@ -16,8 +16,20 @@ async function bootstrap() {
   );
 
   // Enable CORS for frontend
+  const allowedOrigins = [
+    process.env.FRONTEND_URL ?? 'http://localhost:3000',
+    'https://manuelalvarez.cloud',
+    'https://www.manuelalvarez.cloud',
+    'http://localhost:3000',
+  ];
   app.enableCors({
-    origin: process.env.FRONTEND_URL ?? 'http://localhost:3000',
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(null, false);
+      }
+    },
     credentials: true,
   });
 
