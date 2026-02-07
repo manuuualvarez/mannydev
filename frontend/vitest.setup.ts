@@ -105,7 +105,6 @@ vi.mock('next/link', () => ({
 // Mock next/image
 vi.mock('next/image', () => ({
   default: function MockImage(props: { src: string; alt: string; [key: string]: unknown }) {
-    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
     return React.createElement('img', props);
   },
 }));
@@ -151,6 +150,7 @@ vi.mock('next-intl', async () => {
     ...actual,
     useTranslations: vi.fn((namespace?: string) => {
       // Load the English messages for tests
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const messages = require('./messages/en.json');
       const section = namespace ? messages[namespace] : messages;
 

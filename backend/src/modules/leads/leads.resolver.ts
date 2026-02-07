@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args, ID, Int } from '@nestjs/graphql';
 import { LeadsService } from './leads.service.js';
-import { Lead } from './entities/lead.entity.js';
+import { Lead, LeadStatus } from './entities/lead.entity.js';
 import { CreateLeadInput } from './dto/create-lead.input.js';
 import { UpdateLeadInput } from './dto/update-lead.input.js';
 import { LeadWhereInput } from './dto/lead-where.input.js';
@@ -39,7 +39,10 @@ export class LeadsResolver {
   // Admin: count leads
   @Roles('admin')
   @Query(() => Int, { name: 'leadsCount' })
-  async leadsCount(@Args('status', { nullable: true }) status?: string) {
+  async leadsCount(
+    @Args('status', { type: () => LeadStatus, nullable: true })
+    status?: LeadStatus,
+  ) {
     return this.leadsService.count(status);
   }
 

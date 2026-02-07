@@ -17,7 +17,7 @@ describe('AuthResolver', () => {
   });
 
   describe('me query', () => {
-    it('should return null when not authenticated', async () => {
+    it('should return null when not authenticated', () => {
       // Arrange - no auth header / no user in context
       const context = {
         req: {
@@ -26,13 +26,13 @@ describe('AuthResolver', () => {
       };
 
       // Act
-      const result = await resolver.me(context);
+      const result = resolver.me(context);
 
       // Assert
       expect(result).toBeNull();
     });
 
-    it('should return user info when authenticated', async () => {
+    it('should return user info when authenticated', () => {
       // Arrange - valid JWT with user data
       const context = {
         req: {
@@ -50,7 +50,7 @@ describe('AuthResolver', () => {
       };
 
       // Act
-      const result = await resolver.me(context);
+      const result = resolver.me(context);
 
       // Assert
       expect(result).toEqual({
@@ -63,7 +63,7 @@ describe('AuthResolver', () => {
       });
     });
 
-    it('should handle missing optional fields', async () => {
+    it('should handle missing optional fields', () => {
       // Arrange - user with only sub (minimal)
       const context = {
         req: {
@@ -75,7 +75,7 @@ describe('AuthResolver', () => {
       };
 
       // Act
-      const result = await resolver.me(context);
+      const result = resolver.me(context);
 
       // Assert
       expect(result).toEqual({
@@ -88,7 +88,7 @@ describe('AuthResolver', () => {
       });
     });
 
-    it('should handle missing publicMetadata', async () => {
+    it('should handle missing publicMetadata', () => {
       // Arrange - user without publicMetadata
       const context = {
         req: {
@@ -100,7 +100,7 @@ describe('AuthResolver', () => {
       };
 
       // Act
-      const result = await resolver.me(context);
+      const result = resolver.me(context);
 
       // Assert
       expect(result).toEqual({
@@ -113,7 +113,7 @@ describe('AuthResolver', () => {
       });
     });
 
-    it('should return user role from publicMetadata', async () => {
+    it('should return user role from publicMetadata', () => {
       // Arrange - user with role in publicMetadata
       const context = {
         req: {
@@ -128,7 +128,7 @@ describe('AuthResolver', () => {
       };
 
       // Act
-      const result = await resolver.me(context);
+      const result = resolver.me(context);
 
       // Assert
       expect(result).not.toBeNull();

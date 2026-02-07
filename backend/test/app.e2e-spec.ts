@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access */
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
@@ -96,7 +97,9 @@ describe('Application (e2e)', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body.errors).toBeDefined();
-          expect(res.body.errors[0].message).toMatch(/Unauthorized|No authorization header/);
+          expect(res.body.errors[0].message).toMatch(
+            /Unauthorized|No authorization header/,
+          );
         });
     });
   });
@@ -134,7 +137,9 @@ describe('Application (e2e)', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body.errors).toBeDefined();
-          expect(res.body.errors[0].message).toMatch(/Unauthorized|No authorization header/);
+          expect(res.body.errors[0].message).toMatch(
+            /Unauthorized|No authorization header/,
+          );
         });
     });
   });
@@ -180,7 +185,9 @@ describe('Application (e2e)', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body.errors).toBeDefined();
-          expect(res.body.errors[0].message).toMatch(/Unauthorized|No authorization header/);
+          expect(res.body.errors[0].message).toMatch(
+            /Unauthorized|No authorization header/,
+          );
         });
     });
 

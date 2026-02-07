@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 import { Test, TestingModule } from '@nestjs/testing';
 import { DashboardService } from './dashboard.service';
 import { PrismaService } from '../../prisma/prisma.service';
 
 describe('DashboardService', () => {
   let service: DashboardService;
+
   let mockPrisma: any;
 
   beforeEach(async () => {
@@ -27,21 +29,21 @@ describe('DashboardService', () => {
   it('should return all dashboard stats correctly', async () => {
     // Mock counts in order of Promise.all calls
     mockPrisma.service.count
-      .mockResolvedValueOnce(6)   // totalServices
-      .mockResolvedValueOnce(4);  // activeServices
+      .mockResolvedValueOnce(6) // totalServices
+      .mockResolvedValueOnce(4); // activeServices
 
     mockPrisma.blogPost.count
-      .mockResolvedValueOnce(5)   // totalBlogPosts
-      .mockResolvedValueOnce(3)   // publishedBlogPosts
-      .mockResolvedValueOnce(2);  // draftBlogPosts
+      .mockResolvedValueOnce(5) // totalBlogPosts
+      .mockResolvedValueOnce(3) // publishedBlogPosts
+      .mockResolvedValueOnce(2); // draftBlogPosts
 
     mockPrisma.lead.count
-      .mockResolvedValueOnce(20)  // totalLeads
-      .mockResolvedValueOnce(8)   // newLeads
-      .mockResolvedValueOnce(5)   // contactedLeads
-      .mockResolvedValueOnce(3)   // qualifiedLeads
-      .mockResolvedValueOnce(12)  // leadsThisMonth
-      .mockResolvedValueOnce(8);  // leadsLastMonth
+      .mockResolvedValueOnce(20) // totalLeads
+      .mockResolvedValueOnce(8) // newLeads
+      .mockResolvedValueOnce(5) // contactedLeads
+      .mockResolvedValueOnce(3) // qualifiedLeads
+      .mockResolvedValueOnce(12) // leadsThisMonth
+      .mockResolvedValueOnce(8); // leadsLastMonth
 
     mockPrisma.user.count.mockResolvedValueOnce(15); // totalUsers
 

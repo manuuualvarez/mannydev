@@ -1,4 +1,9 @@
-import { Injectable, ConflictException, NotFoundException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { CreateBlogPostInput } from './dto/create-blog-post.input.js';
 import { UpdateBlogPostInput } from './dto/update-blog-post.input.js';
@@ -63,10 +68,10 @@ export class BlogService {
         content: input.content,
         excerpt: input.excerpt,
         coverImage: input.coverImage,
-        seoMetadata: input.seoMetadata as object ?? undefined,
+        seoMetadata: (input.seoMetadata as object) ?? undefined,
         isPublished: input.isPublished ?? false,
         publishedAt: input.isPublished ? new Date() : null,
-        translations: input.translations as object ?? undefined,
+        translations: (input.translations as object) ?? undefined,
       },
     });
   }

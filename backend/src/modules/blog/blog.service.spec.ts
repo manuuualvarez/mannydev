@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { BlogService } from './blog.service';
@@ -101,7 +102,12 @@ describe('BlogService', () => {
   describe('findBySlug (public)', () => {
     it('should return published post by slug', async () => {
       // Arrange
-      const mockPost = { id: '1', title: 'Post 1', slug: 'post-1', isPublished: true };
+      const mockPost = {
+        id: '1',
+        title: 'Post 1',
+        slug: 'post-1',
+        isPublished: true,
+      };
       mockPrismaService.blogPost.findUnique.mockResolvedValue(mockPost);
 
       // Act
@@ -187,10 +193,15 @@ describe('BlogService', () => {
         slug: 'existing-slug',
         content: 'Post content',
       };
-      mockPrismaService.blogPost.findUnique.mockResolvedValue({ id: '1', slug: 'existing-slug' });
+      mockPrismaService.blogPost.findUnique.mockResolvedValue({
+        id: '1',
+        slug: 'existing-slug',
+      });
 
       // Act & Assert
-      await expect(service.create(createInput)).rejects.toThrow(ConflictException);
+      await expect(service.create(createInput)).rejects.toThrow(
+        ConflictException,
+      );
     });
   });
 
@@ -198,7 +209,12 @@ describe('BlogService', () => {
     it('should update existing post', async () => {
       // Arrange
       const updateInput = { title: 'Updated Title' };
-      const existingPost = { id: '1', title: 'Old Title', slug: 'post-1', isPublished: false };
+      const existingPost = {
+        id: '1',
+        title: 'Old Title',
+        slug: 'post-1',
+        isPublished: false,
+      };
       const updatedPost = { ...existingPost, ...updateInput };
       mockPrismaService.blogPost.findUnique.mockResolvedValue(existingPost);
       mockPrismaService.blogPost.update.mockResolvedValue(updatedPost);
@@ -213,9 +229,18 @@ describe('BlogService', () => {
     it('should set publishedAt when publishing', async () => {
       // Arrange
       const updateInput = { isPublished: true };
-      const existingPost = { id: '1', title: 'Post', isPublished: false, publishedAt: null };
+      const existingPost = {
+        id: '1',
+        title: 'Post',
+        isPublished: false,
+        publishedAt: null,
+      };
       mockPrismaService.blogPost.findUnique.mockResolvedValue(existingPost);
-      mockPrismaService.blogPost.update.mockResolvedValue({ ...existingPost, isPublished: true, publishedAt: new Date() });
+      mockPrismaService.blogPost.update.mockResolvedValue({
+        ...existingPost,
+        isPublished: true,
+        publishedAt: new Date(),
+      });
 
       // Act
       await service.update('1', updateInput);
@@ -235,9 +260,9 @@ describe('BlogService', () => {
       mockPrismaService.blogPost.findUnique.mockResolvedValue(null);
 
       // Act & Assert
-      await expect(service.update('non-existent', { title: 'Test' })).rejects.toThrow(
-        NotFoundException,
-      );
+      await expect(
+        service.update('non-existent', { title: 'Test' }),
+      ).rejects.toThrow(NotFoundException);
     });
   });
 
@@ -260,7 +285,9 @@ describe('BlogService', () => {
       mockPrismaService.blogPost.findUnique.mockResolvedValue(null);
 
       // Act & Assert
-      await expect(service.delete('non-existent')).rejects.toThrow(NotFoundException);
+      await expect(service.delete('non-existent')).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 });

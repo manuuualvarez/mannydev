@@ -25,7 +25,7 @@ interface GraphQLContext {
 export class AuthResolver {
   @Public()
   @Query(() => AuthUser, { nullable: true })
-  async me(@Context() context: GraphQLContext): Promise<AuthUser | null> {
+  me(@Context() context: GraphQLContext): AuthUser | null {
     const user = context.req.user;
     if (!user) {
       return null;

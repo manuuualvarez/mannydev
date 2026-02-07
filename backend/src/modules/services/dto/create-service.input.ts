@@ -1,5 +1,14 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
-import { IsString, IsBoolean, IsOptional, IsInt, MinLength, Matches, Min, IsObject } from 'class-validator';
+import {
+  IsString,
+  IsBoolean,
+  IsOptional,
+  IsInt,
+  MinLength,
+  Matches,
+  Min,
+  IsObject,
+} from 'class-validator';
 import { GraphQLJSON } from 'graphql-scalars';
 
 @InputType()
@@ -11,7 +20,9 @@ export class CreateServiceInput {
 
   @Field()
   @IsString()
-  @Matches(/^[a-z0-9-]+$/, { message: 'Slug must be lowercase with hyphens only' })
+  @Matches(/^[a-z0-9-]+$/, {
+    message: 'Slug must be lowercase with hyphens only',
+  })
   slug: string;
 
   @Field()

@@ -13,9 +13,7 @@ export class ServicesResolver {
 
   @Public()
   @Query(() => [Service], { name: 'services' })
-  async services(
-    @Args('where', { nullable: true }) where?: ServiceWhereInput,
-  ) {
+  async services(@Args('where', { nullable: true }) where?: ServiceWhereInput) {
     return this.servicesService.findAll(where);
   }
 

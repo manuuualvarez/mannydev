@@ -4,6 +4,7 @@ import { CreateLeadInput } from './dto/create-lead.input.js';
 import { UpdateLeadInput } from './dto/update-lead.input.js';
 import { LeadWhereInput } from './dto/lead-where.input.js';
 import { LeadPaginationInput } from './dto/lead-pagination.input.js';
+import type { LeadStatus } from './entities/lead.entity.js';
 
 @Injectable()
 export class LeadsService {
@@ -31,7 +32,7 @@ export class LeadsService {
       data: input,
     });
 
-    this.notifyWebhook(lead);
+    void this.notifyWebhook(lead);
 
     return lead;
   }
@@ -43,7 +44,7 @@ export class LeadsService {
     company: string | null;
     message: string;
     createdAt: Date;
-  }) {
+  }): void {
     const webhookUrl = process.env.N8N_WEBHOOK_URL;
     if (!webhookUrl) return;
 
@@ -59,8 +60,9 @@ export class LeadsService {
         createdAt: lead.createdAt,
         source: 'manuelalvarez.cloud',
       }),
-    }).catch((err) => {
-      this.logger.warn(`Failed to notify webhook: ${err.message}`);
+    }).catch((err: unknown) => {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.warn(`Failed to notify webhook: ${message}`);
     });
   }
 
@@ -91,9 +93,9 @@ export class LeadsService {
     return this.prisma.lead.delete({ where: { id } });
   }
 
-  async count(status?: string) {
+  async count(status?: LeadStatus) {
     return this.prisma.lead.count({
-      where: status ? { status: status as any } : undefined,
+      where: status ? { status } : undefined,
     });
   }
 }

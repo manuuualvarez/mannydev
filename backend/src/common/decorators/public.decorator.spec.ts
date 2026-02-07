@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Public, IS_PUBLIC_KEY } from './public.decorator';
 
 describe('Public Decorator', () => {

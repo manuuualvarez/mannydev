@@ -10,7 +10,7 @@ vi.mock('framer-motion', () => ({
     section: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
       <section {...props}>{children}</section>
     ),
-    div: ({ children, layoutId, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
       <div {...props}>{children}</div>
     ),
     span: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (

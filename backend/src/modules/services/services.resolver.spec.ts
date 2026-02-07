@@ -52,7 +52,9 @@ describe('ServicesResolver', () => {
 
     it('should support filtering by isActive', async () => {
       // Arrange
-      const mockServices = [{ id: '1', name: 'Active Service', isActive: true }];
+      const mockServices = [
+        { id: '1', name: 'Active Service', isActive: true },
+      ];
       mockServicesService.findAll.mockResolvedValue(mockServices);
 
       // Act
@@ -60,7 +62,9 @@ describe('ServicesResolver', () => {
 
       // Assert
       expect(result).toEqual(mockServices);
-      expect(mockServicesService.findAll).toHaveBeenCalledWith({ isActive: true });
+      expect(mockServicesService.findAll).toHaveBeenCalledWith({
+        isActive: true,
+      });
     });
   });
 
@@ -129,7 +133,11 @@ describe('ServicesResolver', () => {
     it('should update existing service', async () => {
       // Arrange
       const updateInput = { name: 'Updated Name' };
-      const updatedService = { id: '1', name: 'Updated Name', slug: 'service-1' };
+      const updatedService = {
+        id: '1',
+        name: 'Updated Name',
+        slug: 'service-1',
+      };
       mockServicesService.update.mockResolvedValue(updatedService);
 
       // Act
@@ -195,7 +203,12 @@ describe('ServicesResolver', () => {
     it('should update service startingPrice via resolver', async () => {
       // Arrange
       const updateInput = { startingPrice: 49900 };
-      const updatedService = { id: '1', name: 'Service', slug: 'service-1', startingPrice: 49900 };
+      const updatedService = {
+        id: '1',
+        name: 'Service',
+        slug: 'service-1',
+        startingPrice: 49900,
+      };
       mockServicesService.update.mockResolvedValue(updatedService);
 
       // Act

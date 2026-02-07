@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useMutation } from '@apollo/client/react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { gsap, ScrollTrigger } from '@/lib/gsap-config';
+import { gsap } from '@/lib/gsap-config';
 import { useTranslations } from 'next-intl';
 import { CREATE_LEAD } from '@/lib/graphql/mutations/leads';
 import { cn } from '@/lib/utils';
@@ -202,7 +202,7 @@ export function ContactSection() {
       setSubmitted(true);
       reset();
       setTimeout(() => setSubmitted(false), 5000);
-    } catch (error) {
+    } catch {
       // Error is handled by Apollo Client error state
     }
   };

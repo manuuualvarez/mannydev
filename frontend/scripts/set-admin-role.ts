@@ -41,7 +41,7 @@ async function setAdminRole(userId: string) {
     console.log(`Setting admin role for user: ${userId}`);
 
     // First, get the current user to verify they exist
-    const existingUser = await clerkClient.users.getUser(userId);
+    await clerkClient.users.getUser(userId);
 
     // Update the user with admin role
     const user = await clerkClient.users.updateUser(userId, {

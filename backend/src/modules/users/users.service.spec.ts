@@ -162,7 +162,10 @@ describe('UsersService', () => {
 
     it('should create a new user with explicit role', async () => {
       // Arrange
-      const createInput = { clerkUserId: 'clerk_user_admin_new', role: 'ADMIN' };
+      const createInput = {
+        clerkUserId: 'clerk_user_admin_new',
+        role: 'ADMIN',
+      };
       const createdUser = {
         id: 'cuid-admin-new',
         ...createInput,

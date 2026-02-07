@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { GET_ADMIN_SERVICES } from '@/lib/graphql/admin';
+import '@/lib/graphql/admin';
 
 // Mock data
 const mockServices = [

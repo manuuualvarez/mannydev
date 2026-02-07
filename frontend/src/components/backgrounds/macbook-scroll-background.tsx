@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useSyncExternalStore } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
@@ -21,11 +21,8 @@ export function MacBookScrollBackground({ className }: MacBookScrollBackgroundPr
   const lidRef = useRef<HTMLDivElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const emptySubscribe = () => () => {};
+  const isClient = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   useEffect(() => {
     if (!isClient || prefersReducedMotion || !containerRef.current || !lidRef.current) return;

@@ -10,7 +10,7 @@ export interface ClerkUser {
 export const CurrentUser = createParamDecorator(
   (_data: unknown, context: ExecutionContext): ClerkUser | undefined => {
     const ctx = GqlExecutionContext.create(context);
-    const request = ctx.getContext().req;
-    return request.user as ClerkUser | undefined;
+    const gqlContext = ctx.getContext<{ req: { user?: ClerkUser } }>();
+    return gqlContext.req.user;
   },
 );
