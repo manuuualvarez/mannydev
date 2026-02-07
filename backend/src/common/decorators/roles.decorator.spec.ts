@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/unbound-method */
 import 'reflect-metadata';
 import { Roles, ROLES_KEY } from './roles.decorator';
 

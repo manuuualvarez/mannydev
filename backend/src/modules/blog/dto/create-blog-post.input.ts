@@ -1,5 +1,12 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsString, IsBoolean, IsOptional, MinLength, Matches, IsObject } from 'class-validator';
+import {
+  IsString,
+  IsBoolean,
+  IsOptional,
+  MinLength,
+  Matches,
+  IsObject,
+} from 'class-validator';
 import { GraphQLJSON, GraphQLJSONObject } from 'graphql-scalars';
 
 @InputType()
@@ -11,7 +18,9 @@ export class CreateBlogPostInput {
 
   @Field()
   @IsString()
-  @Matches(/^[a-z0-9-]+$/, { message: 'Slug must be lowercase with hyphens only' })
+  @Matches(/^[a-z0-9-]+$/, {
+    message: 'Slug must be lowercase with hyphens only',
+  })
   slug: string;
 
   @Field({ nullable: true })

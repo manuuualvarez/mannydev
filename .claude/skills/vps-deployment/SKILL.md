@@ -1,6 +1,6 @@
 ---
 name: vps-deployment
-description: Guides deploying Docker apps to the Hostinger VPS (72.62.170.218). Handles Traefik routing, SSL, port/volume isolation, multi-project management, and safe operations that protect n8n. Use when deploying, updating, or managing apps on the VPS.
+description: Guides deploying Docker apps to the Hostinger VPS ($VPS_HOST). Handles Traefik routing, SSL, port/volume isolation, multi-project management, and safe operations that protect n8n. Use when deploying, updating, or managing apps on the VPS.
 ---
 
 # VPS Deployment Guide - Hostinger
@@ -11,11 +11,11 @@ Guide for deploying and managing Docker applications on the Hostinger VPS for ma
 
 | Campo          | Valor                          |
 |----------------|--------------------------------|
-| IP             | 72.62.170.218                  |
-| SSH            | `ssh root@72.62.170.218`       |
+| IP             | $VPS_HOST                  |
+| SSH            | `ssh root@$VPS_HOST`       |
 | OS             | Ubuntu 24.04                   |
 | Plan           | KVM 2 (2 CPUs, 8GB RAM, 100GB)|
-| Hostname       | srv1245135.hstgr.cloud         |
+| Hostname       | $VPS_HOSTNAME         |
 | Reverse Proxy  | Traefik (ports 80, 443)        |
 | SSL            | Let's Encrypt (auto via Traefik TLS challenge) |
 
@@ -158,7 +158,7 @@ volumes:
 ### Step 2: Create .env on VPS
 
 ```bash
-ssh root@72.62.170.218
+ssh root@$VPS_HOST
 mkdir -p /docker/your-project
 cd /docker/your-project
 
@@ -179,18 +179,6 @@ EOF
 ```bash
 cd /docker/your-project
 git clone <repo-url> .
-```
-
-**Option B: rsync from Mac**
-```bash
-# From your Mac
-rsync -avz --exclude='node_modules' --exclude='.next' --exclude='.git' \
-  ./your-project/ root@72.62.170.218:/docker/your-project/
-```
-
-**Option C: scp**
-```bash
-scp -r ./your-project root@72.62.170.218:/docker/your-project/
 ```
 
 ### Step 4: Deploy
@@ -230,23 +218,23 @@ docker logs n8n-traefik-1 --tail 20 | grep "your-project"
 
 ### For Your Main Project (manuelalvarez.cloud)
 
-Requires DNS A records pointing to 72.62.170.218:
-- `@` (root) -> 72.62.170.218
-- `api` -> 72.62.170.218
+Requires DNS A records pointing to $VPS_HOST:
+- `@` (root) -> $VPS_HOST
+- `api` -> $VPS_HOST
 - `www` -> CNAME to manuelalvarez.cloud
 
 ### For Demo Projects (Free, No DNS Needed)
 
 Use subdomains of the VPS hostname:
-- `demo1.srv1245135.hstgr.cloud`
-- `demo1-api.srv1245135.hstgr.cloud`
+- `demo1.$VPS_HOSTNAME`
+- `demo1-api.$VPS_HOSTNAME`
 
-These work automatically because `*.srv1245135.hstgr.cloud` resolves to the VPS IP. Traefik will generate SSL certs for them via TLS challenge.
+These work automatically because `*.$VPS_HOSTNAME` resolves to the VPS IP. Traefik will generate SSL certs for them via TLS challenge.
 
 ### For Client Demos with Custom Domains
 
 If a client wants `demo.clientdomain.com`:
-1. Client creates A record pointing to 72.62.170.218
+1. Client creates A record pointing to $VPS_HOST
 2. You add Traefik labels with `Host(demo.clientdomain.com)`
 3. Traefik auto-generates SSL
 
@@ -392,7 +380,7 @@ Use the Hostinger MCP tools for remote management:
 
 ```bash
 # SSH into VPS
-ssh root@72.62.170.218
+ssh root@$VPS_HOST
 
 # See all running containers
 docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
@@ -424,13 +412,13 @@ Esta seccion explica cada concepto clave para que puedas entender y modificar la
 
 ### DNS - El Sistema de Nombres de Dominio
 
-**Que es:** DNS es como la agenda telefonica de internet. Cuando escribes `manuelalvarez.cloud` en el navegador, tu computadora pregunta "que IP tiene este nombre?" y el DNS responde "72.62.170.218".
+**Que es:** DNS es como la agenda telefonica de internet. Cuando escribes `manuelalvarez.cloud` en el navegador, tu computadora pregunta "que IP tiene este nombre?" y el DNS responde "$VPS_HOST".
 
 **Tipos de registros DNS que usamos:**
 
 | Tipo | Que hace | Ejemplo |
 |------|----------|---------|
-| **A** | Conecta un nombre a una IP (IPv4) | `manuelalvarez.cloud` -> `72.62.170.218` |
+| **A** | Conecta un nombre a una IP (IPv4) | `manuelalvarez.cloud` -> `$VPS_HOST` |
 | **AAAA** | Conecta un nombre a una IP (IPv6) | Similar pero para IPv6 |
 | **CNAME** | Un alias que apunta a otro nombre | `www` -> `manuelalvarez.cloud` |
 | **CAA** | Define quien puede emitir certificados SSL | `letsencrypt.org` (ya configurado) |
@@ -438,13 +426,13 @@ Esta seccion explica cada concepto clave para que puedas entender y modificar la
 **Nuestros registros actuales:**
 
 ```
-manuelalvarez.cloud       A     72.62.170.218   (tu VPS)
-api.manuelalvarez.cloud   A     72.62.170.218   (tu VPS)
-n8n.manuelalvarez.cloud   A     72.62.170.218   (tu VPS)
+manuelalvarez.cloud       A     $VPS_HOST   (tu VPS)
+api.manuelalvarez.cloud   A     $VPS_HOST   (tu VPS)
+n8n.manuelalvarez.cloud   A     $VPS_HOST   (tu VPS)
 www.manuelalvarez.cloud   CNAME manuelalvarez.cloud (alias)
 ```
 
-**Que significa esto:** Cuando alguien visita `manuelalvarez.cloud`, `api.manuelalvarez.cloud`, o `n8n.manuelalvarez.cloud`, TODOS llegan al mismo servidor (72.62.170.218). Traefik (el reverse proxy dentro del servidor) decide a que aplicacion enviar cada peticion basandose en el nombre del dominio.
+**Que significa esto:** Cuando alguien visita `manuelalvarez.cloud`, `api.manuelalvarez.cloud`, o `n8n.manuelalvarez.cloud`, TODOS llegan al mismo servidor ($VPS_HOST). Traefik (el reverse proxy dentro del servidor) decide a que aplicacion enviar cada peticion basandose en el nombre del dominio.
 
 **TTL (Time To Live):** El numero en segundos que los servidores DNS cachean la respuesta. Pusimos 300 (5 minutos), lo que significa que si cambias un registro, tardara maximo 5 minutos en propagarse. Valores mas altos (14400 = 4 horas) significan menos consultas DNS pero cambios mas lentos.
 
@@ -624,9 +612,9 @@ ports:
 1. Usuario escribe "manuelalvarez.cloud" en el navegador
    |
 2. Navegador pregunta al DNS: "que IP tiene manuelalvarez.cloud?"
-   DNS responde: "72.62.170.218"
+   DNS responde: "$VPS_HOST"
    |
-3. Navegador conecta a 72.62.170.218:443 (HTTPS)
+3. Navegador conecta a $VPS_HOST:443 (HTTPS)
    |
 4. Traefik recibe la conexion en puerto 443
    Mira el header Host: manuelalvarez.cloud

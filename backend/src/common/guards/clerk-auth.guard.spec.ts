@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { Test, TestingModule } from '@nestjs/testing';
 import {
   ExecutionContext,
@@ -54,7 +55,9 @@ describe('ClerkAuthGuard', () => {
     reflector = module.get<Reflector>(Reflector);
 
     // Setup GqlExecutionContext mock
-    jest.spyOn(GqlExecutionContext, 'create').mockReturnValue(mockGqlContext as unknown as GqlExecutionContext);
+    jest
+      .spyOn(GqlExecutionContext, 'create')
+      .mockReturnValue(mockGqlContext as unknown as GqlExecutionContext);
   });
 
   afterEach(() => {
@@ -125,7 +128,9 @@ describe('ClerkAuthGuard', () => {
         user: undefined as unknown,
       };
       mockGqlContext.getContext.mockReturnValue({ req: mockReq });
-      mockVerifyToken.mockResolvedValue(mockUser as unknown as ReturnType<typeof verifyToken>);
+      mockVerifyToken.mockResolvedValue(
+        mockUser as unknown as ReturnType<typeof verifyToken>,
+      );
 
       // Act
       const result = await guard.canActivate(mockExecutionContext);
@@ -133,7 +138,10 @@ describe('ClerkAuthGuard', () => {
       // Assert
       expect(result).toBe(true);
       expect(mockReq.user).toEqual(mockUser);
-      expect(mockVerifyToken).toHaveBeenCalledWith('valid-token', { secretKey: 'test_secret_key', issuer: null });
+      expect(mockVerifyToken).toHaveBeenCalledWith('valid-token', {
+        secretKey: 'test_secret_key',
+        issuer: null,
+      });
     });
 
     it('should handle Bearer prefix correctly', async () => {
@@ -147,13 +155,18 @@ describe('ClerkAuthGuard', () => {
         user: undefined as unknown,
       };
       mockGqlContext.getContext.mockReturnValue({ req: mockReq });
-      mockVerifyToken.mockResolvedValue(mockUser as unknown as ReturnType<typeof verifyToken>);
+      mockVerifyToken.mockResolvedValue(
+        mockUser as unknown as ReturnType<typeof verifyToken>,
+      );
 
       // Act
       await guard.canActivate(mockExecutionContext);
 
       // Assert
-      expect(mockVerifyToken).toHaveBeenCalledWith('  token-with-spaces', { secretKey: 'test_secret_key', issuer: null });
+      expect(mockVerifyToken).toHaveBeenCalledWith('  token-with-spaces', {
+        secretKey: 'test_secret_key',
+        issuer: null,
+      });
     });
 
     it('should reject when CLERK_SECRET_KEY is not configured', async () => {

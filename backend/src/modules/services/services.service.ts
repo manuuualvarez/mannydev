@@ -1,4 +1,9 @@
-import { Injectable, ConflictException, NotFoundException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { CreateServiceInput } from './dto/create-service.input.js';
 import { UpdateServiceInput } from './dto/update-service.input.js';
@@ -45,7 +50,7 @@ export class ServicesService {
         order: input.order,
         isActive: input.isActive,
         startingPrice: input.startingPrice,
-        translations: input.translations as object ?? undefined,
+        translations: (input.translations as object) ?? undefined,
       },
     });
   }

@@ -50,7 +50,7 @@ export class ClerkAuthGuard implements CanActivate {
     }
 
     const ctx = GqlExecutionContext.create(context);
-    const request = ctx.getContext().req as RequestWithUser;
+    const request = ctx.getContext<{ req: RequestWithUser }>().req;
     const authHeader = request.headers.authorization;
 
     if (!authHeader) {
@@ -88,9 +88,7 @@ export class ClerkAuthGuard implements CanActivate {
           );
           throw new ForbiddenException('Insufficient permissions');
         }
-        this.logger.debug(
-          `User ${decoded.sub} has required role: ${userRole}`,
-        );
+        this.logger.debug(`User ${decoded.sub} has required role: ${userRole}`);
       }
 
       return true;
@@ -98,7 +96,9 @@ export class ClerkAuthGuard implements CanActivate {
       if (error instanceof ForbiddenException) {
         throw error;
       }
-      this.logger.warn(`Token verification failed: ${(error as Error).message}`);
+      this.logger.warn(
+        `Token verification failed: ${(error as Error).message}`,
+      );
       throw new UnauthorizedException('Invalid token');
     }
   }

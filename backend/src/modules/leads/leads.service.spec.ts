@@ -92,7 +92,12 @@ describe('LeadsService', () => {
       // Arrange
       const mockLeads = [
         { id: '1', name: 'John', email: 'john@example.com', status: 'NEW' },
-        { id: '2', name: 'Jane', email: 'jane@example.com', status: 'CONTACTED' },
+        {
+          id: '2',
+          name: 'Jane',
+          email: 'jane@example.com',
+          status: 'CONTACTED',
+        },
       ];
       mockPrismaService.lead.findMany.mockResolvedValue(mockLeads);
 
@@ -164,7 +169,9 @@ describe('LeadsService', () => {
       mockPrismaService.lead.update.mockResolvedValue(updatedLead);
 
       // Act
-      const result = await service.update('1', { status: LeadStatus.CONTACTED });
+      const result = await service.update('1', {
+        status: LeadStatus.CONTACTED,
+      });
 
       // Assert
       expect(result.status).toBe('CONTACTED');
@@ -178,7 +185,9 @@ describe('LeadsService', () => {
       mockPrismaService.lead.update.mockResolvedValue(updatedLead);
 
       // Act
-      const result = await service.update('1', { notes: 'Followed up via email' });
+      const result = await service.update('1', {
+        notes: 'Followed up via email',
+      });
 
       // Assert
       expect(result.notes).toBe('Followed up via email');
@@ -214,7 +223,9 @@ describe('LeadsService', () => {
       mockPrismaService.lead.findUnique.mockResolvedValue(null);
 
       // Act & Assert
-      await expect(service.delete('non-existent')).rejects.toThrow(NotFoundException);
+      await expect(service.delete('non-existent')).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 });

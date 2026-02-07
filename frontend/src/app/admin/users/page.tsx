@@ -71,7 +71,7 @@ export default function AdminUsersPage() {
       });
       toast.success('User role updated successfully');
       refetch();
-    } catch (error) {
+    } catch {
       toast.error('Failed to update user role');
     }
   };
@@ -88,7 +88,7 @@ export default function AdminUsersPage() {
       await deleteUser({ variables: { id: userToDelete.id } });
       toast.success('User deleted successfully');
       refetch();
-    } catch (error) {
+    } catch {
       toast.error('Failed to delete user');
     } finally {
       setDeleteDialogOpen(false);

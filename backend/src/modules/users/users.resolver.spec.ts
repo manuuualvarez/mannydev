@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/unbound-method */
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersResolver } from './users.resolver';
 import { UsersService } from './users.service';
@@ -131,7 +132,10 @@ describe('UsersResolver', () => {
       // Assert
       expect(result).toEqual(updatedUser);
       expect(result.role).toBe('ADMIN');
-      expect(mockUsersService.updateRole).toHaveBeenCalledWith('cuid-123', updateInput);
+      expect(mockUsersService.updateRole).toHaveBeenCalledWith(
+        'cuid-123',
+        updateInput,
+      );
     });
   });
 
@@ -151,27 +155,42 @@ describe('UsersResolver', () => {
 
   describe('Decorators', () => {
     it('should have @Roles("admin") on users query', () => {
-      const metadata = Reflect.getMetadata('roles', UsersResolver.prototype.users);
+      const metadata = Reflect.getMetadata(
+        'roles',
+        UsersResolver.prototype.users,
+      );
       expect(metadata).toContain('admin');
     });
 
     it('should have @Roles("admin") on user query', () => {
-      const metadata = Reflect.getMetadata('roles', UsersResolver.prototype.user);
+      const metadata = Reflect.getMetadata(
+        'roles',
+        UsersResolver.prototype.user,
+      );
       expect(metadata).toContain('admin');
     });
 
     it('should have @Roles("admin") on usersCount query', () => {
-      const metadata = Reflect.getMetadata('roles', UsersResolver.prototype.usersCount);
+      const metadata = Reflect.getMetadata(
+        'roles',
+        UsersResolver.prototype.usersCount,
+      );
       expect(metadata).toContain('admin');
     });
 
     it('should have @Roles("admin") on updateUserRole mutation', () => {
-      const metadata = Reflect.getMetadata('roles', UsersResolver.prototype.updateUserRole);
+      const metadata = Reflect.getMetadata(
+        'roles',
+        UsersResolver.prototype.updateUserRole,
+      );
       expect(metadata).toContain('admin');
     });
 
     it('should have @Roles("admin") on deleteUser mutation', () => {
-      const metadata = Reflect.getMetadata('roles', UsersResolver.prototype.deleteUser);
+      const metadata = Reflect.getMetadata(
+        'roles',
+        UsersResolver.prototype.deleteUser,
+      );
       expect(metadata).toContain('admin');
     });
   });

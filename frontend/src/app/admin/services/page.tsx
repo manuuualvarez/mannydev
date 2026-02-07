@@ -22,7 +22,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Plus, Pencil, Trash2, Loader2 } from 'lucide-react';
 import { GET_ADMIN_SERVICES, DELETE_SERVICE } from '@/lib/graphql/admin';

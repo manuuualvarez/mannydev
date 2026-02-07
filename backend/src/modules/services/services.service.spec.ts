@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { ServicesService } from './services.service';
@@ -158,7 +159,12 @@ describe('ServicesService', () => {
         slug: 'new-service',
         description: 'A new service description',
       };
-      const createdService = { id: '1', ...createInput, order: 0, isActive: true };
+      const createdService = {
+        id: '1',
+        ...createInput,
+        order: 0,
+        isActive: true,
+      };
       mockPrismaService.service.findUnique.mockResolvedValue(null);
       mockPrismaService.service.create.mockResolvedValue(createdService);
 
@@ -179,10 +185,15 @@ describe('ServicesService', () => {
         slug: 'existing-slug',
         description: 'Description',
       };
-      mockPrismaService.service.findUnique.mockResolvedValue({ id: '1', slug: 'existing-slug' });
+      mockPrismaService.service.findUnique.mockResolvedValue({
+        id: '1',
+        slug: 'existing-slug',
+      });
 
       // Act & Assert
-      await expect(service.create(createInput)).rejects.toThrow(ConflictException);
+      await expect(service.create(createInput)).rejects.toThrow(
+        ConflictException,
+      );
     });
   });
 
@@ -211,9 +222,9 @@ describe('ServicesService', () => {
       mockPrismaService.service.findUnique.mockResolvedValue(null);
 
       // Act & Assert
-      await expect(service.update('non-existent', { name: 'Test' })).rejects.toThrow(
-        NotFoundException,
-      );
+      await expect(
+        service.update('non-existent', { name: 'Test' }),
+      ).rejects.toThrow(NotFoundException);
     });
   });
 
@@ -239,7 +250,9 @@ describe('ServicesService', () => {
       mockPrismaService.service.findUnique.mockResolvedValue(null);
 
       // Act & Assert
-      await expect(service.delete('non-existent')).rejects.toThrow(NotFoundException);
+      await expect(service.delete('non-existent')).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 
@@ -248,10 +261,17 @@ describe('ServicesService', () => {
       const input = {
         name: 'Desarrollo Web',
         slug: 'desarrollo-web',
-        description: 'Creamos aplicaciones web modernas y escalables para tu negocio.',
+        description:
+          'Creamos aplicaciones web modernas y escalables para tu negocio.',
         translations: {
-          es: { name: 'Desarrollo Web', description: 'Creamos aplicaciones web modernas...' },
-          en: { name: 'Web Development', description: 'We build modern web applications...' },
+          es: {
+            name: 'Desarrollo Web',
+            description: 'Creamos aplicaciones web modernas...',
+          },
+          en: {
+            name: 'Web Development',
+            description: 'We build modern web applications...',
+          },
         },
       };
 
@@ -424,9 +444,27 @@ describe('ServicesService', () => {
     it('should return services with startingPrice field', async () => {
       // Arrange
       const mockServices = [
-        { id: '1', name: 'Service A', slug: 'service-a', order: 0, startingPrice: 29900 },
-        { id: '2', name: 'Service B', slug: 'service-b', order: 1, startingPrice: null },
-        { id: '3', name: 'Service C', slug: 'service-c', order: 2, startingPrice: 99900 },
+        {
+          id: '1',
+          name: 'Service A',
+          slug: 'service-a',
+          order: 0,
+          startingPrice: 29900,
+        },
+        {
+          id: '2',
+          name: 'Service B',
+          slug: 'service-b',
+          order: 1,
+          startingPrice: null,
+        },
+        {
+          id: '3',
+          name: 'Service C',
+          slug: 'service-c',
+          order: 2,
+          startingPrice: 99900,
+        },
       ];
       mockPrismaService.service.findMany.mockResolvedValue(mockServices);
 

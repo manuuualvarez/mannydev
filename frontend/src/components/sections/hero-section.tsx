@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { gsap, ScrollTrigger } from '@/lib/gsap-config';
+import { useRef, useEffect, useSyncExternalStore } from 'react';
+import { gsap } from '@/lib/gsap-config';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
@@ -46,11 +46,8 @@ export function HeroSection() {
   const ctaRef = useRef<HTMLDivElement>(null);
   const orbsRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
+  const emptySubscribe = () => () => {};
+  const isLoaded = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   useEffect(() => {
     if (prefersReducedMotion || !isLoaded) return;

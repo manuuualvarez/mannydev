@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/unbound-method */
 import { Test, TestingModule } from '@nestjs/testing';
 import { DashboardResolver } from './dashboard.resolver';
 import { DashboardService } from './dashboard.service';
 
 describe('DashboardResolver', () => {
   let resolver: DashboardResolver;
+
   let mockDashboardService: any;
 
   beforeEach(async () => {
@@ -49,7 +51,10 @@ describe('DashboardResolver', () => {
 
   it('should have @Roles("admin") decorator', () => {
     // Verify the resolver method has the admin role guard
-    const metadata = Reflect.getMetadata('roles', DashboardResolver.prototype.dashboardStats);
+    const metadata = Reflect.getMetadata(
+      'roles',
+      DashboardResolver.prototype.dashboardStats,
+    );
     expect(metadata).toContain('admin');
   });
 });
